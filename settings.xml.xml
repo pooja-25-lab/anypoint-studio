@@ -1,0 +1,183 @@
+<settings>
+	<!-- 
+		The path to the local repository - defaults to ~/.m2/repository 
+		or c:\users\userid\.m2\repository
+	-->
+    <localRepository>C:\Users\R73423\.m2\repository\</localRepository>
+	<pluginGroups>
+        <pluginGroup>org.mule.tools</pluginGroup>
+        <pluginGroup>org.mule.tools.maven</pluginGroup>
+        <pluginGroup>org.mule.tooling</pluginGroup>
+		<pluginGroup>org.sonatype.plugins</pluginGroup>
+	</pluginGroups>
+  <proxies>
+    <proxy>
+      <id>proxy1</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>R73423</username>
+      <password>Godavari@25088</password>
+      <host>proxy.kcc.com</host>
+      <port>80</port>
+      <nonProxyHosts>*.kcc.com</nonProxyHosts>
+    </proxy>
+    <proxy>
+      <id>proxy2</id>
+      <active>true</active>
+      <protocol>https</protocol>
+      <username>R73423</username>
+      <password>Godavari@25088</password>
+      <host>proxy.kcc.com</host>
+      <port>80</port>
+      <nonProxyHosts>*.kcc.com</nonProxyHosts>
+    </proxy>
+	
+  </proxies>
+	
+    <mirrors>
+		<mirror> <!--Send all requests to the kcc-nexus group -->
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<url>https://nexus.kcc.com/repository/kcc-nexus/</url>
+		</mirror>	
+	<!--Send all requests to the kcc-nexus group -->
+		<!--<mirror> 
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<url>https://nexus.kcc.com/repository/kcc-nexus/</url>
+		</mirror> -->
+	</mirrors>
+	<servers>
+		<server>
+			<id>nexus</id>
+			<!--
+				Follow steps #2 & #3 in the following guide to set your master password 
+				and KC Active Directory password for authentication to the Nexus server.
+
+				https://maven.apache.org/guides/mini/guide-encryption.html
+
+			-->
+			<username>R73423</username>
+      <password>Godavari@25088</password>
+		</server>
+        <server>
+            <id>MuleRepository</id>
+            <username>kimberly.clark.nexus</username>
+            <password>mwiu3dfhr56yer</password>
+        </server>
+	   <server>
+			<id>kcc-nexus</id>
+			<username>R73423</username>
+      <password>Godavari@25088</password>
+		</server>		
+	</servers>
+	<profiles>
+		<profile>
+			<id>nexus</id>
+			<!-- Use only if necessary to override the repository (and pluginRepository) "central" from the Maven Super POM to activate snapshots for both! -->
+			<!-- 
+			<repositories>
+				<repository>
+					<id>central</id>
+					<url>http://central</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>central</id>
+					<url>http://central</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+			-->
+			<pluginRepositories>
+				<pluginRepository>
+					<id>mule-public</id>
+					<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>		
+        <profile>
+            <id>Mule</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>MuleRepository</id>
+                    <name>MuleRepository</name>
+                    <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>mulesoft-releases</id>
+                     <name>MuleSoft Repository</name>
+                     <url>http://repository.mulesoft.org/releases/</url>
+                    <layout>default</layout>
+                </repository>
+                <repository>
+					<id>kc-exchange</id>
+					<name>KC Anypoint Exchange</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/410eb4e7-7070-47ff-82a1-67d10bdeeff9/maven</url>
+					<layout>default</layout>
+				</repository>				
+                <repository>
+                    <id>mulesoft-snapshots</id>
+                    <name>MuleSoft Snapshot Repository</name>
+                    <url>http://repository.mulesoft.org/snapshots/</url>
+                    <layout>default</layout>
+                </repository>
+				
+				<repository>
+					<id>kcc-nexus</id>
+					<name></name>
+					<url>https://nexus.kcc.com/repository/maven-public/</url>
+					<layout>default</layout>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>mule-public</id>
+                    <url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+                </pluginRepository>
+
+<!--Added new for our ref-->
+				<pluginRepository>
+					<id>mulesoft-releases</id>
+					<name>mulesoft release repository</name>
+					<layout>default</layout>
+					<url>https://repository.mulesoft.org/releases/</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+            </pluginRepositories>
+        </profile>		
+	</profiles>
+	<activeProfiles>
+		<activeProfile>nexus</activeProfile>
+	</activeProfiles>
+</settings>
